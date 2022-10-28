@@ -1,0 +1,26 @@
+{
+  "name": "back-end",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server.js",
+  "scripts": {
+    "prestart": "npx sequelize-cli db:create && npx sequelize-cli db:migrate",
+    "start": "node .",
+    "drop": "npx sequelize-cli db:drop",
+    "seed": "npx sequelize-cli db:seed:all",
+    "debug": "nodemon ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "eslint": "^8.26.0",
+    "express": "4.17",
+    "express-async-errors": "^3.1.1",
+    "mysql2": "2.3",
+    "node": "^19.0.0",
+    "nodemon": "^2.0.20",
+    "sequelize": "^6.25.3"
+  }
+}
