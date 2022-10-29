@@ -1,7 +1,7 @@
-const postError = {
-  type01: { code: 404, message: 'Post does not exist' },
-  type02: { code: 401, message: 'Unauthorized user' },
-  type03: { code: 400, message: 'one or more "categoryIds" not found' },
+const jobError = {
+  type01: { code: 404, message: 'Job does not exist' },
+  type02: { code: 409, message: 'Job with same title already registered' },
+  type03: { code: 400, message: 'One or more "categoryIds" not found' },
   type04: { code: 500, message: 'Please contact the support team' },
 };
 
@@ -24,7 +24,7 @@ const loginError = {
   type03: { code: 500, message: 'Please contact the support team' },
 };
 module.exports = {
-  postError,
+  jobError,
   userError,
   categoryError,
   loginError,

@@ -4,10 +4,14 @@ const { reqBodyMiddleware, userMiddleware } = require('../middlewares');
 
 const router = express.Router();
 
+router.get('/',
+  userController.listUsers);
 
 router.post('/',
   reqBodyMiddleware.userBody,
   userMiddleware.validateNewUSer,
   userController.registerUser);
+
+
 
 module.exports = router;

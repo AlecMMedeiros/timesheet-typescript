@@ -24,11 +24,20 @@ const userSchema = Joi.object({
   password: Joi.string().min(6).required().messages({
     'string.min': '"password" length must be at least 6 characters long',
   }),
-  image: Joi.string(),
+});
+
+const jobSchema = Joi.object({
+  title: Joi.string().min(8).required().messages({
+    'string.min': '"title" length must be at least 8 characters long',
+  }),
+  description: Joi.string().min(40).required().messages({
+    'string.min': '"description" length must be at least 40 characters long',
+  }),
 });
 
 
 module.exports = {
   loginSchema,
   userSchema,
+  jobSchema,
 };

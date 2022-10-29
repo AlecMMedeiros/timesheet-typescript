@@ -12,7 +12,6 @@ module.exports = (sequelize, DataTypes) => {
   },
   {
     tableName: 'jobs',
-    underscored: true,
     timestamps: true,
     createdAt: 'published',
     updatedAt: 'updated'
