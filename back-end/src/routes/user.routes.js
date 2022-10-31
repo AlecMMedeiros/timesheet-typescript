@@ -4,6 +4,10 @@ const { reqBodyMiddleware, userMiddleware } = require('../middlewares');
 
 const router = express.Router();
 
+
+router.get('/:id',
+  userController.listUsersById);
+
 router.get('/',
   userController.listUsers);
 

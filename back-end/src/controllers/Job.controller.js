@@ -2,6 +2,7 @@ const { jobService } = require("../services");
 
 const registerJob = async (req, res) => {
   const newJob = await jobService.createJob(req.body);
+  
 
   return res.status(newJob.code).json(newJob.object || { message: newJob.message });
 }

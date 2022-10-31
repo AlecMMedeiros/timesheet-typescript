@@ -12,7 +12,16 @@ const listUsers = async (req, res) => {
   return res.status(fetch.code).json(fetch.object || { message: fetch.message });
 }
 
+const listUsersById = async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  const fetch = await userService.fetchUsersById(id);
+  console.log(fetch);
+
+  return res.status(fetch.code).json(fetch.object || { message: fetch.message });
+}
 module.exports = {
   registerUser,
   listUsers,
+  listUsersById,
 }

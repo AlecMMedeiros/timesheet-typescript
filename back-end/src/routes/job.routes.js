@@ -7,6 +7,7 @@ const router = express.Router();
 router.get('/',
 jobController.listJobs);
 
+
 router.post('/',
   reqBodyMiddleware.jobBody,
   jobMiddleware.validateNewJob,

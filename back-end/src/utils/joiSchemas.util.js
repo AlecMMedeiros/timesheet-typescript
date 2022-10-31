@@ -28,11 +28,20 @@ const userSchema = Joi.object({
 
 const jobSchema = Joi.object({
   title: Joi.string().min(8).required().messages({
+    'any.required': errorMessage,
     'string.min': '"title" length must be at least 8 characters long',
   }),
   description: Joi.string().min(40).required().messages({
+    'any.required': errorMessage,
     'string.min': '"description" length must be at least 40 characters long',
   }),
+  estimatedHours: Joi.string().required().messages({
+    'any.required': errorMessage,
+    'string.min': '"description" length must be at least 40 characters long',
+  }),
+  userIds: Joi.array().items(Joi.number().required().messages({
+    'any.required': '"userIds" at least one userId',
+  }))
 });
 
 

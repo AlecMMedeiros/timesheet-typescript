@@ -9,9 +9,10 @@ module.exports = (sequelize, DataTypes ) => {
     password: DataTypes.STRING,
   },
   {
-    tableName: 'users',   
+    tableName: 'users',
+    underscored: true,   
     timestamps: false,
   });
-
+  
   return User;
 };
