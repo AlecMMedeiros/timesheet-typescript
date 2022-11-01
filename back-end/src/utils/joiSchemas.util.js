@@ -35,6 +35,10 @@ const jobSchema = Joi.object({
     'any.required': errorMessage,
     'string.min': '"description" length must be at least 40 characters long',
   }),
+  os: Joi.number().min(1).required().messages({
+    'any.required': errorMessage,
+    'number.min': '"os" length must be at least 1 characters long',
+  }),
   estimatedHours: Joi.string().required().messages({
     'any.required': errorMessage,
     'string.min': '"description" length must be at least 40 characters long',

@@ -1,11 +1,12 @@
 'use strict';
 
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('users_jobs', { 
-      user_id: {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable('users_jobs', {
+      userId: {
         allowNull: false,
         primaryKey: true,
+        field: 'user_id',
         type: Sequelize.INTEGER,
         references: {
           model: 'users',
@@ -14,9 +15,10 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      job_id: {
+      jobId: {
         allowNull: false,
         primaryKey: true,
+        field: 'job_id',
         type: Sequelize.INTEGER,
         references: {
           model: 'jobs',
@@ -28,7 +30,7 @@ module.exports = {
     });
   },
 
-  down: async (queryInterface, Sequelize) => {
+  async down(queryInterface, _Sequelize) {
     await queryInterface.dropTable('users_jobs');
   }
 };

@@ -7,6 +7,9 @@ const router = express.Router();
 router.get('/',
 jobController.listJobs);
 
+router.get('/:id',
+jobController.listJobsById);
+
 
 router.post('/',
   reqBodyMiddleware.jobBody,

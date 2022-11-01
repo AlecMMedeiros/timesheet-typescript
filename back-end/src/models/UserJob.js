@@ -1,14 +1,7 @@
-module.exports = (sequelize, DataTypes) => {
-  const UserJob = sequelize.define('UserJob', {
-    userId: {
-      primaryKey: true,
-      type: DataTypes.INTEGER,
-    },
-    jobId: {
-      primaryKey: true,
-      type: DataTypes.INTEGER,
-    }
-  }, {
+module.exports = (sequelize, _DataTypes) => {
+  const UserJob = sequelize.define('UserJob', 
+   {},
+    {
     underscored: true,
     tableName: 'users_jobs',
     timestamps: false,
@@ -16,17 +9,17 @@ module.exports = (sequelize, DataTypes) => {
 
   UserJob.associate = (models) => {
     models.User.belongsToMany(models.Job, {
-      as: 'users',
-      foreignKey: 'user_id',
-      otherKey: 'job_id',
+      as: 'jobs',
       through: UserJob,
+      foreignKey: 'userId',
+      otherKey: 'jobId',
     });
 
     models.Job.belongsToMany(models.User, {
-      as: 'jobs',
-      foreignKey: 'job_id',
-      otherKey: 'user_id',
+      as: 'users',
       through: UserJob,
+      foreignKey: 'jobId',
+      otherKey: 'userId',
     });
   }
 
