@@ -25,7 +25,7 @@ const fetchUsers = async () => {
   const transaction = await sequelize.transaction();
   try {
     const fetch = await User.findAll({
-      attributes: { exclude: ['password', 'id'] },
+      attributes: { exclude: ['password'] },
       include: [{
         model: Job,
         as: 'jobs',        

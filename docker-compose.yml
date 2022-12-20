@@ -1,43 +1,5 @@
 version: '4'
 services:
-  frontend:
-    build: ./app/frontend
-    ports:
-      - 3000:3000
-    platform: linux/x86_64
-    working_dir: /app-timesheet-frontend
-    depends_on:
-      backend:
-        condition: service_healthy
-    # Os `healthcheck` devem garantir que a aplicação
-    # está operacional, antes de liberar o container
-    healthcheck:
-      test: [ "CMD", "lsof", "-t", "-i:3000" ]
-      timeout: 10s
-      retries: 5
-  backend:
-    container_name: app_timesheet_backend
-    build: ./app/backend
-    ports:
-      - 3001:3001
-    platform: linux/x86_64
-    working_dir: /app-timesheet-backend
-    depends_on:
-      timesheet_api_db:
-        condition: service_healthy
-    environment:
-      - APP_PORT=3001
-      - JWT_SECRET=jwt_secret
-      # Os dados abaixo se referem ao container `timesheet_api_db`
-      # Dica: Relembre aqui da comunicação interna entre containers
-      - DB_USER=root
-      - DB_PASS=123456
-      - DB_HOST=timesheet_api_db
-      - DB_PORT=3306
-    healthcheck:
-      test: [ "CMD", "lsof", "-t", "-i:3001" ]
-      timeout: 10s
-      retries: 5
   timesheet_api_db:
     image: mysql:8.0.21
     container_name: timesheet_api_db
