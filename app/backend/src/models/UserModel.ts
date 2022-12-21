@@ -1,8 +1,5 @@
 import { Model, INTEGER, STRING } from 'sequelize';
 import db from '.';
-import JobModel from './JobModel';
-import UserJobsModel from './UserJobModel';
-
 class UserModel extends Model {
   declare id: number;
   declare displayName: string;

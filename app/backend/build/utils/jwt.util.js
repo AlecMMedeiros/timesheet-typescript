@@ -23,8 +23,34 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const sequelize_1 = require("sequelize");
-const config = __importStar(require("../database/config/config"));
-const sequelize = new sequelize_1.Sequelize(config);
-exports.default = sequelize;
-//# sourceMappingURL=index.js.map
+const jsonwebtoken = __importStar(require("jsonwebtoken"));
+require("dotenv/config");
+const SECRET = process.env.JWT_SECRET;
+class jwtUtil {
+    _jwt = jsonwebtoken;
+    createToken(data) {
+        const token = this._jwt.sign({ data }, SECRET, {
+            expiresIn: '1d',
+            algorithm: 'HS256',
+        });
+        return token;
+    }
+    async validateToken(token) {
+        try {
+            const { data } = this._jwt.verify(token, process.env.JWT_SECRET);
+            return data;
+        }
+        catch (error) {
+            return {
+                code: 401,
+                message: 'Expired or invalid token',
+            };
+        }
+    }
+    async decoded(token) {
+        const data = this._jwt.verify(token, process.env.JWT_SECRET);
+        return data;
+    }
+}
+exports.default = jwtUtil;
+//# sourceMappingURL=jwt.util.js.map

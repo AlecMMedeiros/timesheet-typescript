@@ -6,48 +6,48 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const JobModel_1 = __importDefault(require("../models/JobModel"));
 const UserModel_1 = __importDefault(require("../models/UserModel"));
 const models_1 = __importDefault(require("../models"));
-const { userError } = require("../utils/errorMap.utils");
-const jwt = require('../utils/jwt.util');
+const jwt_util_1 = __importDefault(require("../utils/jwt.util"));
+const errorMap_utils_1 = __importDefault(require("../utils/errorMap.utils"));
 class UserService {
-    _job = JobModel_1.default;
     _user = UserModel_1.default;
+    _jwt = new jwt_util_1.default();
+    _ErrorMap = new errorMap_utils_1.default();
     async createUser(payload) {
         const { displayName, email, password } = payload;
         const { password: _, ...userWithoutPassword } = payload;
         const transaction = await models_1.default.transaction();
         try {
-            const token = jwt.createToken(userWithoutPassword);
+            const token = this._jwt.createToken(userWithoutPassword);
             await this._user.create({ displayName, email, password });
             await transaction.commit();
             return { code: 201, object: { token } };
         }
         catch (error) {
             transaction.rollback();
-            throw userError.type04;
+            throw this._ErrorMap.userError.type04;
         }
     }
-    ;
     async fetchUsers() {
         const transaction = await models_1.default.transaction();
         try {
             const fetch = await this._user.findAll({
                 attributes: { exclude: ['password'] },
-                include: [{
+                include: [
+                    {
                         model: JobModel_1.default,
                         as: 'jobs',
-                        through: { attributes: [] }
-                    }]
+                        through: { attributes: [] },
+                    },
+                ],
             });
-            console.log(fetch);
             await transaction.commit();
             return { code: 200, object: fetch };
         }
         catch (error) {
             await transaction.commit();
-            throw userError.type04;
+            throw this._ErrorMap.userError.type04;
         }
     }
-    ;
     async fetchUsersById(id) {
         try {
             const fetch = await this._user.findOne({
@@ -58,10 +58,9 @@ class UserService {
             return { code: 200, object: fetch };
         }
         catch (error) {
-            throw userError.type04;
+            throw this._ErrorMap.userError.type04;
         }
     }
-    ;
 }
 exports.default = UserService;
 //# sourceMappingURL=User.service.js.map

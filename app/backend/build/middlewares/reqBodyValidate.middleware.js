@@ -1,23 +1,27 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const joiSchema = require('../utils/joiSchemas.util');
+const joiSchemas_util_1 = __importDefault(require("../utils/joiSchemas.util"));
 class BodyValidation {
+    _Joi = new joiSchemas_util_1.default();
     async loginBody(req, res, next) {
-        const { error } = joiSchema.loginSchema.validate(req.body);
+        const { error } = this._Joi.loginSchema.validate(req.body);
         if (error)
             return res.status(400).json({ message: error.details[0].message });
         next();
     }
     ;
     async userBody(req, res, next) {
-        const { error } = joiSchema.userSchema.validate(req.body);
+        const { error } = this._Joi.userSchema.validate(req.body);
         if (error)
             return res.status(400).json({ message: error.details[0].message });
         next();
     }
     ;
     async jobBody(req, res, next) {
-        const { error } = joiSchema.jobSchema.validate(req.body);
+        const { error } = this._Joi.jobSchema.validate(req.body);
         if (error)
             return res.status(400).json({ message: error.details[0].message });
         next();

@@ -8,54 +8,48 @@ const _1 = __importDefault(require("."));
 const UserJobModel_1 = __importDefault(require("./UserJobModel"));
 const UserModel_1 = __importDefault(require("./UserModel"));
 class JobModel extends sequelize_1.Model {
-    null;
-    dataValues;
 }
 JobModel.init({
     id: {
         type: sequelize_1.INTEGER,
-        primaryKey: true
+        primaryKey: true,
     },
     title: {
         type: sequelize_1.STRING,
-        allowNull: false
+        allowNull: false,
     },
     description: {
         type: sequelize_1.STRING,
-        allowNull: false
+        allowNull: false,
     },
     os: {
         type: sequelize_1.INTEGER,
-        allowNull: true
+        allowNull: true,
     },
     estimatedHours: {
         type: sequelize_1.TIME,
     },
     status: {
-        type: sequelize_1.STRING
-    },
-    published: {
-        type: sequelize_1.TIME
-    },
-    updated: {
-        type: sequelize_1.TIME
-    },
-    createdAt: {
-        field: 'published',
-        type: sequelize_1.DATE
-    },
-    updatedAt: {
-        field: 'updated',
-        type: sequelize_1.DATE
+        type: sequelize_1.STRING,
     },
 }, {
     tableName: 'jobs',
-    underscored: true,
-    sequelize: _1.default,
     modelName: 'jobs',
+    sequelize: _1.default,
     timestamps: true,
+    underscored: true,
 });
-UserModel_1.default.belongsToMany(JobModel, { as: 'jobs', through: UserJobModel_1.default, foreignKey: 'user_id', otherKey: 'job_id' });
-JobModel.belongsToMany(UserModel_1.default, { as: 'users', through: UserJobModel_1.default, foreignKey: 'job_id', otherKey: 'user_id' });
+UserModel_1.default.belongsToMany(JobModel, {
+    as: 'jobs',
+    through: UserJobModel_1.default,
+    foreignKey: 'user_id',
+    otherKey: 'job_id',
+});
+JobModel.belongsToMany(UserModel_1.default, {
+    as: 'users',
+    through: UserJobModel_1.default,
+    foreignKey: 'job_id',
+    otherKey: 'user_id',
+});
 exports.default = JobModel;
 //# sourceMappingURL=JobModel.js.map

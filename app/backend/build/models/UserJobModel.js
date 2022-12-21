@@ -10,7 +10,8 @@ class UserJobsModel extends sequelize_1.Model {
 UserJobsModel.init({}, {
     sequelize: _1.default,
     tableName: 'users_jobs',
-    modelName: 'users_jobs'
+    modelName: 'users_jobs',
+    timestamps: false
 });
 exports.default = UserJobsModel;
 //# sourceMappingURL=UserJobModel.js.map

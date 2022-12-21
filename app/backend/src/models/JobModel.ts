@@ -1,68 +1,67 @@
-import { Model, INTEGER, STRING, TIME, Identifier } from 'sequelize';
+import { Model, INTEGER, STRING, TIME, Identifier, DATE } from 'sequelize';
 import db from '.';
 import UserJobsModel from './UserJobModel';
 import UserModel from './UserModel';
-
-
 
 class JobModel extends Model {
   declare id: number;
   declare title: string;
   declare description: string;
   declare os: number;
-  declare estimatedHours:Date;
+  declare estimatedHours: Date;
   declare status: string;
   declare published: Date;
-  declare updated: Date    
-  null: Identifier | undefined;
-  dataValues: any;
+  declare updated: Date;
+  declare null: Identifier | undefined;
+  declare dataValues: any;
 }
 
 JobModel.init(
   {
     id: {
       type: INTEGER,
-      primaryKey: true
-    },
+      primaryKey: true,
+    },    
     title: {
       type: STRING,
-      allowNull: false
+      allowNull: false,
     },
     description: {
       type: STRING,
-      allowNull: false
+      allowNull: false,
     },
     os: {
       type: INTEGER,
-      allowNull: true
+      allowNull: true,
     },
     estimatedHours: {
       type: TIME,
     },
     status: {
-      type: STRING
+      type: STRING,
     },
-    published: {
-      type: TIME
-    },
-    updated: {
-      type: TIME
-    },
-  }, 
+  },
   {
     tableName: 'jobs',
-    underscored: true,
-    sequelize: db,
     modelName: 'jobs',
+    sequelize: db,
     timestamps: true,
-    createdAt: 'published',
-    updatedAt: 'updated'
-  },
+    underscored: true,
+  }
 );
- 
-UserModel.belongsToMany(JobModel, { as:'jobs', through: UserJobsModel, foreignKey: 'user_id', otherKey: 'job_id'});
 
-JobModel.belongsToMany(UserModel, { as: 'users', through: UserJobsModel, foreignKey: 'job_id', otherKey: 'user_id'});
+UserModel.belongsToMany(JobModel, {
+  as: 'jobs',
+  through: UserJobsModel,
+  foreignKey: 'user_id',
+  otherKey: 'job_id',
+});
+
+JobModel.belongsToMany(UserModel, {
+  as: 'users',
+  through: UserJobsModel,
+  foreignKey: 'job_id',
+  otherKey: 'user_id',
+});
 
 export default JobModel;
-
