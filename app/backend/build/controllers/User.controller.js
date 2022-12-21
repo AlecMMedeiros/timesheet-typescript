@@ -20,6 +20,14 @@ class UserController {
         const fetch = await this._userservice.fetchUsersById(id);
         return res.status(fetch.code).json(fetch.object);
     }
+    async updateUser(req, res) {
+        const { id } = req.params;
+        const payload = { ...req.body, id };
+        console.log(payload);
+        const updatedUser = await this._userservice.updateUser(payload);
+        return res.status(updatedUser.code).json(updatedUser.object);
+    }
+    ;
 }
 exports.default = UserController;
 //# sourceMappingURL=User.controller.js.map

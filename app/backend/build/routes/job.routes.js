@@ -14,5 +14,6 @@ const reqBodyMiddleware = new reqBodyValidate_middleware_1.default();
 router.get('/', jobController.listJobs.bind(jobController));
 router.get('/:id', jobController.listJobsById.bind(jobController));
 router.post('/', reqBodyMiddleware.jobBody.bind(reqBodyMiddleware), jobMiddleware.validateNewJob.bind(jobMiddleware), jobController.registerJob.bind(jobController));
+router.patch('/:id', reqBodyMiddleware.jobUpdateBody.bind(reqBodyMiddleware), jobController.updateJob.bind(jobController));
 exports.default = router;
 //# sourceMappingURL=job.routes.js.map

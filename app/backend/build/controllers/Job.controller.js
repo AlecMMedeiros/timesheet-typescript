@@ -11,6 +11,12 @@ class JobController {
         return res.status(newJob.code).json(newJob.object);
     }
     ;
+    async updateJob(req, res) {
+        const { id } = req.params;
+        const payload = { ...req.body, id };
+        const updatedJob = await this._jobservice.updateJob(payload);
+        return res.status(updatedJob.code).json(updatedJob.object);
+    }
     async listJobs(req, res) {
         const fetch = await this._jobservice.fetchJobs();
         return res.status(fetch.code).json(fetch.object);

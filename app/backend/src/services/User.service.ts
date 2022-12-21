@@ -4,8 +4,9 @@ import sequelize from '../models';
 import ICreateUser from '../interfaces/ICreateUser';
 import jwtUtil from '../utils/jwt.util';
 import ErrorMap from '../utils/errorMap.utils';
+import IUpdateUser from '../interfaces/IUpdateUser';
 
-export default class UserService {  
+export default class UserService {
   private _user = UserModel;
   private _jwt = new jwtUtil();
   private _ErrorMap = new ErrorMap();
@@ -23,6 +24,25 @@ export default class UserService {
 
       return { code: 201, object: { token } };
     } catch (error) {
+      transaction.rollback();
+
+      throw this._ErrorMap.userError.type04;
+    }
+  }
+
+  public async updateUser(payload: IUpdateUser) {
+    const { displayName, email, id } = payload;  
+    const transaction = await sequelize.transaction();
+
+    try {
+      await this._user.update({ displayName: displayName, email: email }, { where: { id:id } });
+      await transaction.commit();
+
+      const updatedUser = await this._user.findByPk(id,{ attributes: {exclude: ['password']}})
+      
+
+      return { code: 200, object: { updatedUser } };
+    } catch (error) {   
       transaction.rollback();
 
       throw this._ErrorMap.userError.type04;

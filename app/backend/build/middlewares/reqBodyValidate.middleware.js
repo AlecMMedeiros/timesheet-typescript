@@ -20,8 +20,22 @@ class BodyValidation {
         next();
     }
     ;
+    async userUpdateBody(req, res, next) {
+        const { error } = this._Joi.userUpdateSchema.validate(req.body);
+        if (error)
+            return res.status(400).json({ message: error.details[0].message });
+        next();
+    }
+    ;
     async jobBody(req, res, next) {
         const { error } = this._Joi.jobSchema.validate(req.body);
+        if (error)
+            return res.status(400).json({ message: error.details[0].message });
+        next();
+    }
+    ;
+    async jobUpdateBody(req, res, next) {
+        const { error } = this._Joi.jobUpdateSchema.validate(req.body);
         if (error)
             return res.status(400).json({ message: error.details[0].message });
         next();

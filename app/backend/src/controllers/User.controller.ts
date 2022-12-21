@@ -1,5 +1,6 @@
 import UserService from "../services/User.service";
 import { Response, Request } from "express";
+import IUpdateUser from "../interfaces/IUpdateUser";
 
 export default class UserController {
   private _userservice = new UserService();
@@ -22,4 +23,13 @@ export default class UserController {
   
     return res.status(fetch.code).json(fetch.object);
   }
+
+  public async updateUser (req: Request, res: Response) {
+    const { id } = req.params;
+    const payload: IUpdateUser = {...req.body, id};
+    console.log(payload)
+    const updatedUser = await this._userservice.updateUser(payload);
+  
+    return res.status(updatedUser.code).json(updatedUser.object);
+  };
 } 

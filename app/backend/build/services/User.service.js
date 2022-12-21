@@ -27,6 +27,20 @@ class UserService {
             throw this._ErrorMap.userError.type04;
         }
     }
+    async updateUser(payload) {
+        const { displayName, email, id } = payload;
+        const transaction = await models_1.default.transaction();
+        try {
+            await this._user.update({ displayName: displayName, email: email }, { where: { id: id } });
+            await transaction.commit();
+            const updatedUser = await this._user.findByPk(id, { attributes: { exclude: ['password'] } });
+            return { code: 200, object: { updatedUser } };
+        }
+        catch (error) {
+            transaction.rollback();
+            throw this._ErrorMap.userError.type04;
+        }
+    }
     async fetchUsers() {
         const transaction = await models_1.default.transaction();
         try {

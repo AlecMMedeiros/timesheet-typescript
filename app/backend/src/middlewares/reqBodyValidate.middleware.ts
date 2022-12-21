@@ -18,9 +18,23 @@ export default class BodyValidation {
   
     next();
   };
+
+  public async userUpdateBody (req: Request, res: Response, next: NextFunction) {
+    const { error } = this._Joi.userUpdateSchema.validate(req.body);
+    if (error) return res.status(400).json({ message: error.details[0].message });
+  
+    next();
+  };
   
   public async jobBody (req: Request, res: Response, next: NextFunction) {
     const { error } = this._Joi.jobSchema.validate(req.body);
+    if (error) return res.status(400).json({ message: error.details[0].message });
+  
+    next();
+  };
+
+  public async jobUpdateBody (req: Request, res: Response, next: NextFunction) {
+    const { error } = this._Joi.jobUpdateSchema.validate(req.body);
     if (error) return res.status(400).json({ message: error.details[0].message });
   
     next();

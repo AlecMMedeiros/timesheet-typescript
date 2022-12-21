@@ -4,7 +4,7 @@ import UserJobsModel from '../models/UserJobModel';
 import ICreateJob from '../interfaces/ICreateJob';
 import sequelize from '../models';
 import ErrorMap from '../utils/errorMap.utils';
-
+import IUpdateJob from '../interfaces/IUpdateJob';
 
 export default class JobServices {
   private _job = JobModel;
@@ -63,6 +63,43 @@ export default class JobServices {
     }
   }
 
+  public async updateJob(payload: IUpdateJob) {
+    const { title, description, os, estimatedHours, status, userIds, id } =
+      payload;
+    const transaction = await sequelize.transaction();
+    console.log();
+
+    try {
+      const newJob = await this._job.update(
+        {
+          title: title,
+          description: description,
+          os: os,
+          estimatedHours: estimatedHours,
+          status: status,
+        },
+        { where: { id: id } }
+      );
+      const updatedJob = await this._job.findByPk(id);
+
+      await this._userjob.destroy({ where: { job_id: id } });
+
+      await Promise.all(
+        userIds.map(async (userId) =>
+          this._userjob.create({ user_id: userId, job_id: id })
+        )
+      );
+
+      await transaction.commit();
+
+      return { code: 201, object: updatedJob };
+    } catch (error) {
+      await transaction.rollback();
+
+      throw this._ErrorMap.jobError.type04;
+    }
+  }
+
   public async fetchJobs() {
     const transaction = await sequelize.transaction();
     try {
@@ -79,7 +116,7 @@ export default class JobServices {
       await transaction.commit();
 
       return { code: 200, object: fetch };
-    } catch (error) {  
+    } catch (error) {
       transaction.rollback();
 
       throw this._ErrorMap.jobError.type04;

@@ -24,4 +24,11 @@ router.post('/',
   jobController.registerJob.bind(jobController),
 );
 
+router.patch('/:id',
+  reqBodyMiddleware.jobUpdateBody.bind(reqBodyMiddleware),  
+  jobController.updateJob.bind(jobController),
+);
+
+
+
 export default router;

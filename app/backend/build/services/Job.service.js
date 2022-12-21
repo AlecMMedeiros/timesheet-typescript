@@ -53,6 +53,29 @@ class JobServices {
             throw this._ErrorMap.jobError.type04;
         }
     }
+    async updateJob(payload) {
+        const { title, description, os, estimatedHours, status, userIds, id } = payload;
+        const transaction = await models_1.default.transaction();
+        console.log();
+        try {
+            const newJob = await this._job.update({
+                title: title,
+                description: description,
+                os: os,
+                estimatedHours: estimatedHours,
+                status: status,
+            }, { where: { id: id } });
+            const updatedJob = await this._job.findByPk(id);
+            await this._userjob.destroy({ where: { job_id: id } });
+            await Promise.all(userIds.map(async (userId) => this._userjob.create({ user_id: userId, job_id: id })));
+            await transaction.commit();
+            return { code: 201, object: updatedJob };
+        }
+        catch (error) {
+            await transaction.rollback();
+            throw this._ErrorMap.jobError.type04;
+        }
+    }
     async fetchJobs() {
         const transaction = await models_1.default.transaction();
         try {

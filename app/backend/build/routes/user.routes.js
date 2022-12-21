@@ -11,6 +11,7 @@ const router = (0, express_1.Router)();
 const userController = new User_controller_1.default();
 const reqBodyMiddleware = new reqBodyValidate_middleware_1.default();
 const userMiddleware = new user_middleware_1.default();
+router.patch('/:id', reqBodyMiddleware.userUpdateBody.bind(reqBodyMiddleware), userMiddleware.validateNewUSer.bind(userMiddleware), userController.updateUser.bind(userController));
 router.get('/:id', userController.listUsersById.bind(userController));
 router.get('/', userController.listUsers.bind(userController));
 router.post('/', reqBodyMiddleware.userBody.bind(reqBodyMiddleware), userMiddleware.validateNewUSer.bind(userMiddleware), userController.registerUser.bind(userController));
