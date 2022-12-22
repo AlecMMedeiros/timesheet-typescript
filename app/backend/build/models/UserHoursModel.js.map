@@ -1,0 +1,1 @@
+{"version":3,"file":"UserHoursModel.js","sourceRoot":"","sources":["../../src/models/UserHoursModel.ts"],"names":[],"mappings":";;;;;AAAA,yCAAkC;AAClC,yCAAmB;AAEnB,MAAM,cAAe,SAAQ,iBAAK;CAAG;AACrC,cAAc,CAAC,IAAI,CAAC,EAAG,EAAE;IACvB,SAAS,EAAC,UAAE;IACZ,SAAS,EAAE,aAAa;IACxB,SAAS,EAAE,aAAa;IACxB,UAAU,EAAE,KAAK;CACjB,CAAC,CAAC;AAEJ,kBAAe,cAAc,CAAC"}

@@ -8,6 +8,7 @@ const UserModel_1 = __importDefault(require("../models/UserModel"));
 const models_1 = __importDefault(require("../models"));
 const jwt_util_1 = __importDefault(require("../utils/jwt.util"));
 const errorMap_utils_1 = __importDefault(require("../utils/errorMap.utils"));
+const ActivityModel_1 = __importDefault(require("../models/ActivityModel"));
 class UserService {
     _user = UserModel_1.default;
     _jwt = new jwt_util_1.default();
@@ -48,8 +49,8 @@ class UserService {
                 attributes: { exclude: ['password'] },
                 include: [
                     {
-                        model: JobModel_1.default,
-                        as: 'jobs',
+                        model: ActivityModel_1.default,
+                        as: 'activities',
                         through: { attributes: [] },
                     },
                 ],
@@ -59,6 +60,7 @@ class UserService {
         }
         catch (error) {
             await transaction.commit();
+            console.log(error);
             throw this._ErrorMap.userError.type04;
         }
     }

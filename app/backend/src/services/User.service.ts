@@ -5,6 +5,7 @@ import ICreateUser from '../interfaces/ICreateUser';
 import jwtUtil from '../utils/jwt.util';
 import ErrorMap from '../utils/errorMap.utils';
 import IUpdateUser from '../interfaces/IUpdateUser';
+import ActivityModel from '../models/ActivityModel';
 
 export default class UserService {
   private _user = UserModel;
@@ -54,19 +55,19 @@ export default class UserService {
     try {
       const fetch = await this._user.findAll({
         attributes: { exclude: ['password'] },
-        include: [
+        include: [ 
           {
-            model: JobModel,
-            as: 'jobs',
+            model: ActivityModel,
+            as: 'activities',
             through: { attributes: [] },
           },
         ],
       });
       await transaction.commit();
       return { code: 200, object: fetch };
-    } catch (error) {
+    } catch (error) {      
       await transaction.commit();
-
+      console.log(error)
       throw this._ErrorMap.userError.type04;
     }
   }
@@ -80,7 +81,7 @@ export default class UserService {
       });
 
       return { code: 200, object: fetch };
-    } catch (error) {
+    } catch (error) {      
       throw this._ErrorMap.userError.type04;
     }
   }

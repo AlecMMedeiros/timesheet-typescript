@@ -4,7 +4,14 @@ export default class ErrorMap {
   public jobError = {
     type01: { code: 404, message: 'Job does not exist' },
     type02: { code: 409, message: 'Job with same title already registered' },
-    type03: { code: 400, message: 'One or more "categoryIds" not found' },
+    type03: { code: 400, message: 'One or more "userIds" not found' },
+    type04: { code: 500, message: 'Please contact the support team' },
+  };
+
+  public activityError = {
+    type01: { code: 404, message: 'Activity does not exist' },
+    type02: { code: 409, message: 'Activity with same title already registered' },
+    type03: { code: 400, message: 'One or more "userIds" not found' },
     type04: { code: 500, message: 'Please contact the support team' },
   };
   

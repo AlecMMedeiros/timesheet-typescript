@@ -1,0 +1,1 @@
+{"version":3,"file":"UserActivityModel.js","sourceRoot":"","sources":["../../src/models/UserActivityModel.ts"],"names":[],"mappings":";;;;;AAAA,yCAAkC;AAClC,yCAAmB;AAEnB,MAAM,iBAAkB,SAAQ,iBAAK;CAAG;AACxC,iBAAiB,CAAC,IAAI,CAAC,EAAG,EAAE;IAC1B,SAAS,EAAC,UAAE;IACZ,SAAS,EAAE,kBAAkB;IAC7B,SAAS,EAAE,kBAAkB;IAC7B,UAAU,EAAE,KAAK;CACjB,CAAC,CAAC;AAEJ,kBAAe,iBAAiB,CAAC"}
