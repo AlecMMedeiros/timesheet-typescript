@@ -39,5 +39,12 @@ export default class BodyValidation {
   
     next();
   };
+
+  public async activityBody (req: Request, res: Response, next: NextFunction) {
+    const { error } = this._Joi.activitySchema.validate(req.body);
+    if (error) return res.status(400).json({ message: error.details[0].message });
+  
+    next();
+  };
 }
 

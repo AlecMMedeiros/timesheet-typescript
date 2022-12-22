@@ -10,7 +10,10 @@ const UserActivityModel_1 = __importDefault(require("../models/UserActivityModel
 class ActivityServices {
     _activity = ActivityModel_1.default;
     _useractivity = UserActivityModel_1.default;
-    _ErrorMap = new errorMap_utils_1.default();
+    _ErrorMap;
+    constructor() {
+        this._ErrorMap = new errorMap_utils_1.default();
+    }
     async createActivity(payload) {
         const { id, ...withoutID } = payload;
         const transaction = await models_1.default.transaction();
@@ -18,11 +21,12 @@ class ActivityServices {
             const newActivity = await this._activity.create(withoutID);
             const getNewActivity = await this._activity.findByPk(newActivity.null);
             const getHourId = getNewActivity.dataValues.id;
-            this._useractivity.create({ user_id: id, hour_id: getHourId });
+            await this._useractivity.create({ user_id: id, activity_id: getHourId });
             await transaction.commit();
             return { code: 201, object: getNewActivity };
         }
         catch (error) {
+            console.log(error);
             await transaction.rollback();
             throw this._ErrorMap.activityError.type04;
         }

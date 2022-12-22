@@ -6,19 +6,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const JobModel_1 = __importDefault(require("../models/JobModel"));
 const UserModel_1 = __importDefault(require("../models/UserModel"));
 const models_1 = __importDefault(require("../models"));
-const jwt_util_1 = __importDefault(require("../utils/jwt.util"));
+const validations_util_1 = __importDefault(require("../utils/validations.util"));
 const errorMap_utils_1 = __importDefault(require("../utils/errorMap.utils"));
 const ActivityModel_1 = __importDefault(require("../models/ActivityModel"));
 class UserService {
     _user = UserModel_1.default;
-    _jwt = new jwt_util_1.default();
-    _ErrorMap = new errorMap_utils_1.default();
+    _validationUseful;
+    _ErrorMap;
+    constructor() {
+        this._ErrorMap = new errorMap_utils_1.default();
+        this._validationUseful = new validations_util_1.default();
+    }
     async createUser(payload) {
         const { displayName, email, password } = payload;
         const { password: _, ...userWithoutPassword } = payload;
         const transaction = await models_1.default.transaction();
         try {
-            const token = this._jwt.createToken(userWithoutPassword);
+            const token = this._validationUseful.createToken(userWithoutPassword);
             await this._user.create({ displayName, email, password });
             await transaction.commit();
             return { code: 201, object: { token } };

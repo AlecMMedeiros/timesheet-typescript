@@ -100,6 +100,23 @@ class JoiSchemas {
             'any.required': '"userIds" at least one userId',
         })),
     });
+    activitySchema = Joi.object({
+        activity: Joi.string().min(8).required().messages({
+            'any.required': this._errorMessage,
+            'string.min': '"activity" length must be at least 8 characters long',
+        }),
+        hours: Joi.string().regex(/^([0-9]{2})\:([0-9]{2})$/).required().messages({
+            'any.required': this._errorMessage,
+            'string.regex': '"hours" format must be HH:MIN',
+        }),
+        comment: Joi.string().min(8).required().messages({
+            'any.required': this._errorMessage,
+            'string.min': '"comment" length must be at least 8 characters long',
+        }),
+        date: Joi.date().required().messages({
+            'any.required': this._errorMessage,
+        }),
+    });
 }
 exports.default = JoiSchemas;
 //# sourceMappingURL=joiSchemas.util.js.map

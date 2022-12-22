@@ -9,7 +9,11 @@ import IUpdateJob from '../interfaces/IUpdateJob';
 export default class JobServices {
   private _job = JobModel;
   private _userjob = UserJobsModel;
-  private _ErrorMap = new ErrorMap();
+  private _ErrorMap: ErrorMap;
+
+  constructor () {
+    this._ErrorMap = new ErrorMap();
+  }
 
   public async fetchJobById(id: number) {
     try {
@@ -57,6 +61,7 @@ export default class JobServices {
 
       return { code: 201, object: getchNewJob };
     } catch (error) {
+      console.log(error)
       await transaction.rollback();
 
       throw this._ErrorMap.jobError.type04;
@@ -66,8 +71,7 @@ export default class JobServices {
   public async updateJob(payload: IUpdateJob) {
     const { title, description, os, estimatedHours, status, userIds, id } =
       payload;
-    const transaction = await sequelize.transaction();
-    console.log();
+    const transaction = await sequelize.transaction();   
 
     try {
       const newJob = await this._job.update(

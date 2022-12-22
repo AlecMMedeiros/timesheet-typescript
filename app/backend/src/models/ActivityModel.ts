@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { Model, INTEGER, STRING, DATEONLY, TIME, Identifier } from 'sequelize';
 import db from '.';
 import UserHoursModel from './UserActivityModel';
@@ -5,7 +6,7 @@ import UserModel from './UserModel';
 class ActivityModel extends Model {
   declare id: number;
   declare activity: string;
-  declare hours: Date;
+  declare hours: moment.Duration;
   declare Comment: string;
   declare date: Date;
   declare null: Identifier | undefined;

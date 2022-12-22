@@ -1,10 +1,11 @@
 import * as jsonwebtoken from 'jsonwebtoken';
 import 'dotenv/config';
 import ICreateUserToken from '../interfaces/ICreateUserToeken';
+import brcrypt from 'bcrypt'
 
 const SECRET = process.env.JWT_SECRET;
 
-export default class jwtUtil {
+export default class validationUseful {
   private _jwt = jsonwebtoken;  
   
   public createToken(data: ICreateUserToken) {
@@ -32,4 +33,14 @@ export default class jwtUtil {
     const data = this._jwt.verify(token, process.env.JWT_SECRET as string);
     return data;
   }
+
+  
+    public async generateHash (password:string) {
+        return brcrypt.hash(password, brcrypt.genSaltSync(8));
+    }
+
+    public async validHashedPassword(password:string, userPassword:string) {
+        return brcrypt.compare(password, userPassword);
+    }
+
 }

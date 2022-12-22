@@ -2,15 +2,20 @@ import JobModel from '../models/JobModel';
 import UserModel from '../models/UserModel';
 import sequelize from '../models';
 import ICreateUser from '../interfaces/ICreateUser';
-import jwtUtil from '../utils/jwt.util';
+import validationUseful from '../utils/validations.util';
 import ErrorMap from '../utils/errorMap.utils';
 import IUpdateUser from '../interfaces/IUpdateUser';
 import ActivityModel from '../models/ActivityModel';
 
 export default class UserService {
   private _user = UserModel;
-  private _jwt = new jwtUtil();
-  private _ErrorMap = new ErrorMap();
+  private _validationUseful: validationUseful;
+  private _ErrorMap:  ErrorMap;
+
+  constructor () {
+    this._ErrorMap = new ErrorMap();
+    this._validationUseful = new validationUseful();
+  }
 
   public async createUser(payload: ICreateUser) {
     const { displayName, email, password } = payload;
@@ -18,7 +23,7 @@ export default class UserService {
     const transaction = await sequelize.transaction();
 
     try {
-      const token = this._jwt.createToken(userWithoutPassword);
+      const token = this._validationUseful.createToken(userWithoutPassword);
 
       await this._user.create({ displayName, email, password });
       await transaction.commit();
@@ -67,7 +72,6 @@ export default class UserService {
       return { code: 200, object: fetch };
     } catch (error) {      
       await transaction.commit();
-      console.log(error)
       throw this._ErrorMap.userError.type04;
     }
   }

@@ -1,5 +1,6 @@
 import { Model, INTEGER, STRING } from 'sequelize';
 import db from '.';
+
 class UserModel extends Model {
   declare id: number;
   declare displayName: string;
@@ -33,7 +34,7 @@ UserModel.init(
     sequelize: db,
     underscored: true,   
     timestamps: false,
-  },
+}
 );
 
 

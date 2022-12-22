@@ -11,7 +11,10 @@ const errorMap_utils_1 = __importDefault(require("../utils/errorMap.utils"));
 class JobServices {
     _job = JobModel_1.default;
     _userjob = UserJobModel_1.default;
-    _ErrorMap = new errorMap_utils_1.default();
+    _ErrorMap;
+    constructor() {
+        this._ErrorMap = new errorMap_utils_1.default();
+    }
     async fetchJobById(id) {
         try {
             const result = await this._job.findOne({
@@ -49,6 +52,7 @@ class JobServices {
             return { code: 201, object: getchNewJob };
         }
         catch (error) {
+            console.log(error);
             await transaction.rollback();
             throw this._ErrorMap.jobError.type04;
         }
@@ -56,7 +60,6 @@ class JobServices {
     async updateJob(payload) {
         const { title, description, os, estimatedHours, status, userIds, id } = payload;
         const transaction = await models_1.default.transaction();
-        console.log();
         try {
             const newJob = await this._job.update({
                 title: title,

@@ -7,6 +7,6 @@ const express_1 = __importDefault(require("express"));
 const Activity_controller_1 = __importDefault(require("../controllers/Activity.controller"));
 const router = express_1.default.Router();
 const activitycontroller = new Activity_controller_1.default();
-router.post('/', activitycontroller.createActivity.bind(activitycontroller));
+// router.post('/', activitycontroller.createActivity.bind(activitycontroller))
 exports.default = router;
 //# sourceMappingURL=activity.routes.js.map

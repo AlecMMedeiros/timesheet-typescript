@@ -9,7 +9,6 @@ class ActivityController {
     async createActivity(req, res) {
         const { id } = req.params;
         const payload = { ...req.body, id };
-        console.log(payload);
         const newActivity = await this._activityservice.createActivity(payload);
         return res.status(newActivity.code).json(newActivity.object);
     }
