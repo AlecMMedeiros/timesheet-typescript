@@ -1,5 +1,8 @@
 import { useEffect } from "react";
+import { Route, Routes } from 'react-router-dom';
 import { useContext } from "react";
+import Header from "./components/Header";
+import Sidebar from "./components/Sidebar";
 import TimeSheetContext from "./context/TimeSheetContext";
 import ManageUsers from "./pages/ManageUsers";
 
@@ -13,8 +16,14 @@ function App() {
 
 
   return (   
-    <main className="App">
-      <ManageUsers />
+    <main className="flex flex-col mx-5">
+      <Header />
+      <div className="flex justify-between">
+      <Sidebar />
+      <Routes>
+        <Route path="/users" element={<ManageUsers />}></Route>
+      </Routes>   
+      </div>
     </main>
   );
 }
