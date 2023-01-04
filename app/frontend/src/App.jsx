@@ -1,12 +1,11 @@
-import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { useContext } from 'react';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
-import TimeSheetContext from './context/TimeSheetContext';
 import ManageUsers from './pages/ManageUsers';
 import Dashboard from './pages/Dashboard';
 import ManageActivities from './pages/ManageActivities';
+import ManageActivitiesByUser from './pages/ManageActivitiesByUser';
+
 
 function App() {
  
@@ -19,6 +18,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Dashboard />}></Route>
           <Route path='/users' element={<ManageUsers />}></Route>
+          <Route path='/users/:id/activities' element={<ManageActivitiesByUser />}></Route>
           <Route path='/activities' element={<ManageActivities />}></Route>
         </Routes>
       </div>

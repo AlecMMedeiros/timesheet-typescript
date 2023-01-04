@@ -4,6 +4,7 @@ import TimeSheetContext from './TimeSheetContext';
 
 function TimeSheetProvider({ children }) {
   const [users, setUsers] = useState([]);
+  const [userActivity, setUserActivity] = useState([]);
   const [activities, setActivities] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -18,9 +19,16 @@ function TimeSheetProvider({ children }) {
   const getActivities = async () => {
     const activitiesList = await instanceAxios
       .get('activity')
-      .then((reponse) => reponse.data);
-    console.log(activitiesList)
+      .then((reponse) => reponse.data); 
     setActivities(activitiesList);
+    setIsLoading(false);
+  };
+
+  const getActivitiesByUserId = async (id) => {
+    const activitiesList = await instanceAxios
+      .get(`/user/${id}/activity`)
+      .then((reponse) => reponse.data);
+    setUserActivity(activitiesList);
     setIsLoading(false);
   };
 
@@ -28,12 +36,14 @@ function TimeSheetProvider({ children }) {
     <TimeSheetContext.Provider
       value={{
         users,
+        userActivity,
         setUsers,
         activities,
         setActivities,
         isLoading,
         getUsers,
         getActivities,
+        getActivitiesByUserId
       }}
     >
       {children}

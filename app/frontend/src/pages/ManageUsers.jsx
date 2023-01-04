@@ -1,12 +1,13 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import TimeSheetContext from '../context/TimeSheetContext';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import '../styles/react-tabs.css';
-import { useEffect } from 'react';
 
 export default function ManageUsers() {
   const { users, isLoading } = useContext(TimeSheetContext);
   const { getUsers } = useContext(TimeSheetContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getUsers();
@@ -49,7 +50,9 @@ export default function ManageUsers() {
                       <td className='py-4 px-6'>{user.displayName}</td>
                       <td className='py-4 px-6'>{user.email}</td>
                       <td className='py-4 px-6'>
-                        <button className='font-medium text-blue-600 dark:text-blue-500 hover:underline'>
+                        <button className='font-medium text-blue-600 dark:text-blue-500 hover:underline'
+                        onClick={() => navigate(`${user.id}/activities`)}
+                        >
                           Listar
                         </button>
                       </td>
