@@ -36,14 +36,13 @@ router.post(
 );
 
 router.get(
-  '/:id/activity', 
+  '/:id/activity',
   activitycontroller.listActivities.bind(activitycontroller)
 );
 
 router.get(
-  '/:id/activity/totalhours', 
+  '/:id/activity/totalhours',
   activitycontroller.listActivitiesTotalHours.bind(activitycontroller)
 );
-
 
 export default router;

@@ -21,7 +21,7 @@ JobModel.init(
     id: {
       type: INTEGER,
       primaryKey: true,
-    },    
+    },
     title: {
       type: STRING,
       allowNull: false,

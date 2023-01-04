@@ -4,15 +4,14 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import '../styles/react-tabs.css';
 import { useEffect } from 'react';
 
-export default function ManageUsers() {
-  const { users, isLoading } = useContext(TimeSheetContext);
-  const { getUsers } = useContext(TimeSheetContext);
+export default function ManageActivities() {
+  const { activities, isLoading } = useContext(TimeSheetContext);
+  const { getActivities } = useContext(TimeSheetContext);
 
   useEffect(() => {
-    getUsers();
+    getActivities();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   return (
     <>
       <section className='overflow-x-auto relative shadow-md sm:rounded-lg w-full mx-2 h-full'>
@@ -21,8 +20,8 @@ export default function ManageUsers() {
         ) : (
           <Tabs>
             <TabList>
-              <Tab>Listar Usuários</Tab>
-              <Tab>Cadastrar Usuários</Tab>
+              <Tab>Listar Atividades</Tab>
+              <Tab>Cadastrar Atividades</Tab>
             </TabList>
             <TabPanel>
               <table className='w-full text-sm text-center text-gray-500 dark:text-gray-400'>
@@ -32,25 +31,36 @@ export default function ManageUsers() {
                       #
                     </th>
                     <th scope='col' className='py-3 px-6'>
-                      Nome
+                      Tipo
                     </th>
                     <th scope='col' className='py-3 px-6'>
-                      Email
+                      DATA
                     </th>
                     <th scope='col' className='py-3 px-6'>
-                      Atividades
+                      Horas
                     </th>
+                    <th scope='col' className='py-3 px-6'>
+                      Colaborador
+                    </th>
+                    <th scope='col' className='py-3 px-6'></th>
                   </tr>
                 </thead>
                 <tbody>
-                  {users.map((user) => (
-                    <tr key={user.id} className='bg-white border-b shadow-sm'>
-                      <td className='py-4 px-6'>{user.id}</td>
-                      <td className='py-4 px-6'>{user.displayName}</td>
-                      <td className='py-4 px-6'>{user.email}</td>
+                  {activities.map((activity) => (
+                    <tr
+                      key={activity.id}
+                      className='bg-white border-b shadow-sm'
+                    >
+                      <td className='py-4 px-6'>{activity.id}</td>
+                      <td className='py-4 px-6'>{activity.activity}</td>
+                      <td className='py-4 px-6'>{activity.date}</td>
+                      <td className='py-4 px-6'>{activity.hours}</td>
+                      <td className='py-4 px-6'>
+                        {activity.users[0].displayName}
+                      </td>
                       <td className='py-4 px-6'>
                         <button className='font-medium text-blue-600 dark:text-blue-500 hover:underline'>
-                          Listar
+                          Exibir todas a horas
                         </button>
                       </td>
                     </tr>

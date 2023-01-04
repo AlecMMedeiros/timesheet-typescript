@@ -6,37 +6,34 @@ class UserModel extends Model {
   declare displayName: string;
   declare email: string;
   declare password: string;
-  
 }
 
 UserModel.init(
   {
     id: {
       type: INTEGER,
-      primaryKey: true
+      primaryKey: true,
     },
     displayName: {
       type: STRING,
-      allowNull: false
+      allowNull: false,
     },
     email: {
       type: STRING,
-      allowNull: false
+      allowNull: false,
     },
     password: {
       type: STRING,
-      allowNull: false
+      allowNull: false,
     },
   },
   {
     tableName: 'users',
     modelName: 'users',
     sequelize: db,
-    underscored: true,   
+    underscored: true,
     timestamps: false,
-}
+  }
 );
 
-
 export default UserModel;
-

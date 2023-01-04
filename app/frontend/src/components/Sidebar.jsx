@@ -21,8 +21,9 @@ export default function Sidebar() {
                 clipRule='evenodd'
               ></path>
             </svg>
-            <button className='flex-1 ml-3 text-slate-50 bg-[#007ac3] rounded-sm hover:shadow-lg hover:ring-2'
-            onClick={() => navigate('users')}
+            <button
+              className='flex-1 ml-3 text-slate-50 bg-[#007ac3] rounded-sm hover:shadow-lg hover:ring-2'
+              onClick={() => navigate('users')}
             >
               Usuários
             </button>
@@ -41,7 +42,10 @@ export default function Sidebar() {
                 clipRule='evenodd'
               ></path>
             </svg>
-            <button className='flex-1 ml-3 text-slate-50 bg-[#007ac3] rounded-sm hover:shadow-lg hover:ring-2'>
+            <button
+              className='flex-1 ml-3 text-slate-50 bg-[#007ac3] rounded-sm hover:shadow-lg hover:ring-2'
+              onClick={() => navigate('activities')}
+            >
               Atividades
             </button>
           </li>

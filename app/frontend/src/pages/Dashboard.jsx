@@ -2,17 +2,9 @@ import { useContext } from 'react';
 import TimeSheetContext from '../context/TimeSheetContext';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import '../styles/react-tabs.css';
-import { useEffect } from 'react';
 
-export default function ManageUsers() {
+export default function Dashboard() {
   const { users, isLoading } = useContext(TimeSheetContext);
-  const { getUsers } = useContext(TimeSheetContext);
-
-  useEffect(() => {
-    getUsers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <>
       <section className='overflow-x-auto relative shadow-md sm:rounded-lg w-full mx-2 h-full'>

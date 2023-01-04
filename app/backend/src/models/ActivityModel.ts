@@ -11,39 +11,38 @@ class ActivityModel extends Model {
   declare date: Date;
   declare null: Identifier | undefined;
   declare dataValues: any;
-  
 }
 
 ActivityModel.init(
   {
     id: {
       type: INTEGER,
-      primaryKey: true
+      primaryKey: true,
     },
     activity: {
       type: STRING,
-      allowNull: false
+      allowNull: false,
     },
     hours: {
       type: TIME,
-      allowNull: false
+      allowNull: false,
     },
     comment: {
       type: STRING,
-      allowNull: false
+      allowNull: false,
     },
     date: {
       type: DATEONLY,
-      allowNull: false
+      allowNull: false,
     },
   },
   {
     tableName: 'activities',
     modelName: 'activities',
     sequelize: db,
-    underscored: true,   
+    underscored: true,
     timestamps: false,
-  },
+  }
 );
 
 UserModel.belongsToMany(ActivityModel, {

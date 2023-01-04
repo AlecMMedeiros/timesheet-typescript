@@ -6,24 +6,32 @@ export default class ActivityController {
 
   public async createActivity(req: Request, res: Response) {
     const { id } = req.params;
-    const payload = { ...req.body, id };  
+    const payload = { ...req.body, id };
 
     const newActivity = await this._activityservice.createActivity(payload);
 
     return res.status(newActivity.code).json(newActivity.object);
   }
 
-  public async listActivities (req: Request, res: Response) {
+  public async listActivities(req: Request, res: Response) {
     const { id } = req.params;
-    const fetchedActivities = await this._activityservice.listActivities(Number(id));
+    const fetchedActivities = await this._activityservice.listActivities(
+      Number(id)
+    );
 
     return res.status(fetchedActivities.code).json(fetchedActivities.object);
   }
 
-  public async listActivitiesTotalHours (req: Request, res: Response) {
+  public async listAllActivities(req: Request, res: Response) {
+    const fetchedActivities = await this._activityservice.listAllActivities();
+
+    return res.status(fetchedActivities.code).json(fetchedActivities.object);
+  }
+
+  public async listActivitiesTotalHours(req: Request, res: Response) {
     const { id } = req.params;
     const fetchedValues = await this._activityservice.totalHours(Number(id));
 
-   return res.status(fetchedValues.code).json(fetchedValues.object);  
+    return res.status(fetchedValues.code).json(fetchedValues.object);
   }
 }

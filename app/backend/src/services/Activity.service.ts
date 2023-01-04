@@ -52,6 +52,20 @@ export default class ActivityServices {
     return { code: 200, object: fetchActivities };
   }
 
+  public async listAllActivities() {
+    const fetchActivities = await this._activity.findAll({
+      include: [
+        {
+          model: UserModel,
+          as: 'users',         
+          attributes: { exclude: ['password', 'id'] },
+          through: { attributes: [] },
+        },
+      ],
+    });
+    return { code: 200, object: fetchActivities };
+  }
+
   public async totalHours(id: number) {
     const filteredUser = await this.listActivities(id);
     const totalValue: { activity: string; value: string }[] = [];

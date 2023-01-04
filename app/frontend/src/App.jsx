@@ -1,28 +1,26 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { useContext } from "react";
-import Header from "./components/Header";
-import Sidebar from "./components/Sidebar";
-import TimeSheetContext from "./context/TimeSheetContext";
-import ManageUsers from "./pages/ManageUsers";
+import { useContext } from 'react';
+import Header from './components/Header';
+import Sidebar from './components/Sidebar';
+import TimeSheetContext from './context/TimeSheetContext';
+import ManageUsers from './pages/ManageUsers';
+import Dashboard from './pages/Dashboard';
+import ManageActivities from './pages/ManageActivities';
 
 function App() {
-  const { getUsers } = useContext(TimeSheetContext)
-  
-  useEffect(()=>{
-    getUsers()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
+ 
 
-
-  return (   
-    <main className="flex flex-col mx-5">
+  return (
+    <main className='flex flex-col mx-5'>
       <Header />
-      <div className="flex justify-between">
-      <Sidebar />
-      <Routes>
-        <Route path="/users" element={<ManageUsers />}></Route>
-      </Routes>   
+      <div className='flex justify-between'>
+        <Sidebar />
+        <Routes>
+          <Route path='/' element={<Dashboard />}></Route>
+          <Route path='/users' element={<ManageUsers />}></Route>
+          <Route path='/activities' element={<ManageActivities />}></Route>
+        </Routes>
       </div>
     </main>
   );
