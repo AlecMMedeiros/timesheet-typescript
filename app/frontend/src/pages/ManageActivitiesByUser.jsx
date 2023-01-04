@@ -5,19 +5,17 @@ import '../styles/react-tabs.css';
 import { useEffect } from 'react';
 
 export default function ManageActivitiesByUser() {
-  const { userActivity, isLoading, getActivitiesByUserId } = useContext(TimeSheetContext);
+  const { userActivity, isLoading, getActivitiesByUserId } =
+    useContext(TimeSheetContext);
 
-const userId = window.location.pathname.split('/')[2]
+  const userId = window.location.pathname.split('/')[2];
 
-
-console.log(userId)
-
-useEffect(() => {
-  getActivitiesByUserId(userId);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-}, []);
-return (
-  <>
+  useEffect(() => {
+    getActivitiesByUserId(userId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  return (
+    <>
       <section className='overflow-x-auto relative shadow-md sm:rounded-lg w-full mx-2 h-full'>
         {isLoading ? (
           <p>Loading</p>
