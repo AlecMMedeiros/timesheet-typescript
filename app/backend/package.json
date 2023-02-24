@@ -26,7 +26,7 @@
     "moment": "^2.29.4",
     "mysql2": "2.3",
     "node": "^19.0.0",
-    "sequelize": "^6.25.3"
+    "sequelize": ">=6.28.1"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
